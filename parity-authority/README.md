@@ -25,7 +25,7 @@ The JSON key and password files of the authority nodes are under `./parity/autho
 
 ## Access JSON RPC
 
-Talk to JSON RPC at [http://127.0.0.1:8545](http://127.0.0.1:8545) with your favorite client.
+Talk to JSON RPC at [http://127.0.0.1:8544](http://127.0.0.1:8544) with your favorite client.
 
 ## Run tests
 

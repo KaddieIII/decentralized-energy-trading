@@ -14,7 +14,7 @@ apis = [
   "signer",
   "parity_set"
 ]
-port = 8545
+port = 8544
 
 [mining]
 engine_signer = "0x00Bd138aBD70e2F00903268F3Db08f2D25677C9e"

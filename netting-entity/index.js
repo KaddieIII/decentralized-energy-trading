@@ -9,6 +9,7 @@ const hhHandler = require("./household-handler");
 const zkHandler = require("./zk-handler");
 const web3Helper = require("../helpers/web3");
 const contractHelper = require("../helpers/contract");
+const ewo = require('./sendReq');
 
 const serverConfig = require("../ned-server-config");
 
@@ -71,12 +72,44 @@ async function init() {
     }
   );
 
+  async function checkSaldo(){
+    let utility2 = utility;
+    let utilityBeforeNetting = JSON.parse(JSON.stringify(utility2)); // dirty hack for obtaining deep copy of utility
+    Object.setPrototypeOf(utilityBeforeNetting, Utility.prototype);
+    utilityAfterNetting = { ...utility2 };
+    Object.setPrototypeOf(utilityAfterNetting, Utility.prototype);
+    // utilityAfterNetting.settle();
+    let saldo = 0;
+    for (i in utilityAfterNetting.households){
+      saldo += utilityAfterNetting.households[i].meterDelta
+    }
+    console.log("Community-Saldo: " + saldo);
+    return saldo;
+  }
+
+  async function checkPrice(){
+      avgasks = await Promise.resolve(ewo.getAsks);
+      avgbids = await Promise.resolve(ewo.getBids);
+      return ['Asks: ' + avgasks + ', Bids: ' + avgbids];
+  }
+  
+  checkPrice().then(console.log);
+
+
+
   async function runZokrates() {
     let utilityBeforeNetting = JSON.parse(JSON.stringify(utility)); // dirty hack for obtaining deep copy of utility
     Object.setPrototypeOf(utilityBeforeNetting, Utility.prototype);
     utilityAfterNetting = { ...utility };
     Object.setPrototypeOf(utilityAfterNetting, Utility.prototype);
     utilityAfterNetting.settle();
+    /*
+    let saldo = 0;
+    for (i in utilityAfterNetting.households){
+      saldo += utilityAfterNetting.households[i].meterDelta
+    }
+    console.log("Community-Saldo: " + saldo);
+    */
     console.log("Utility before Netting: ", utilityBeforeNetting)
     console.log("Utility after Netting: ", utilityAfterNetting)
     let hhAddresses = zkHandler.generateProof(
@@ -171,12 +204,13 @@ app.put("/energy/:householdAddress", async (req, res) => {
     );
     utility.updateMeterDelta(householdAddress, meterDelta, timestamp);
 
-    res.status(200);
-    res.send();
+    res.status(200).send();
+    //res.sendStatus();
   } catch (err) {
     console.error("PUT /energy/:householdAddress", err.message);
-    res.status(400);
-    res.send(err);
+    //res.status(400);
+    //res.sendStatus(err);
+    res.status(400).send(err);
   }
 });
 
@@ -192,8 +226,9 @@ app.get("/network", (req, res) => {
     });
   } catch (err) {
     console.error("GET /network", err.message);
-    res.status(400);
-    res.send(err);
+    //res.status(400);
+    //res.sendStatus(err);
+    res.status(400).send(err);
   }
 });
 
@@ -216,8 +251,9 @@ app.get("/meterdelta", async (req, res) => {
     res.json({meterDelta: utility.households[recoveredAddress].meterDelta });
   } catch (err) {
     console.error("GET /meterdelta", err.message);
-    res.status(400);
-    res.send(err);
+    //res.status(400);
+    //res.sendStatus(err);
+    res.status(400).send(err);
   }
 });
 
@@ -236,8 +272,9 @@ app.get("/transfers/:householdAddress", (req, res) => {
     res.json(transfers || []);
   } catch (err) {
     console.error("GET /transfers/:householdAddress", err.message);
-    res.status(400);
-    res.send(err);
+    //res.status(400);
+    //res.sendStatus(err);
+    res.status(400).send(err);
   }
 });
 

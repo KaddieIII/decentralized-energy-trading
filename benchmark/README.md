@@ -15,7 +15,7 @@ tags: []
 
 The parity node is configured as follows:
   - 1 authority PoA setup using Aura with 5 seconds step duration
-  - RPC interface `http://localhost:8545` or `ws://localhost:8546`
+  - RPC interface `http://localhost:8544` or `ws://localhost:8546`
   - Authority address `0x00Bd138aBD70e2F00903268F3Db08f2D25677C9e`
   - Authority private key `dcb15ba5d2caf586c22f0414f527201d2fb2424c92ced3efacd742a34e5b0db2`
   - Authority keystore json under `PROJECT_ROOT/benchmark/parity/authority.json`

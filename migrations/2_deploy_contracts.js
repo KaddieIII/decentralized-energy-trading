@@ -99,7 +99,7 @@ module.exports = async (deployer, network, [authority]) => {
           },
           "node0"
         ];
-        await callRPC("personal_sendTransaction", 8545, params).body;
+        await callRPC("personal_sendTransaction", 8544, params).body;
         process.stdout.write(chalk.green("done\n"));
       });
 
