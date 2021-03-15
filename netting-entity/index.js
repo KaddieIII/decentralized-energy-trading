@@ -9,7 +9,11 @@ const hhHandler = require("./household-handler");
 const zkHandler = require("./zk-handler");
 const web3Helper = require("../helpers/web3");
 const contractHelper = require("../helpers/contract");
+
 const ewo = require('./sendReq');
+var awhandler = require("./apis/awattar_handler");
+var cryptohandler = require("./apis/cryptoCurrHandler");
+var currencyConverter = require("./apis/currency_converter");
 
 const serverConfig = require("../ned-server-config");
 
@@ -71,30 +75,88 @@ async function init() {
       utility = utilityAfterNetting;
     }
   );
-
+  
+  // returns the Saldo of the community
   async function checkSaldo(){
     let utility2 = utility;
     let utilityBeforeNetting = JSON.parse(JSON.stringify(utility2)); // dirty hack for obtaining deep copy of utility
     Object.setPrototypeOf(utilityBeforeNetting, Utility.prototype);
     utilityAfterNetting = { ...utility2 };
     Object.setPrototypeOf(utilityAfterNetting, Utility.prototype);
-    // utilityAfterNetting.settle();
+    utilityAfterNetting.settle();
     let saldo = 0;
     for (i in utilityAfterNetting.households){
       saldo += utilityAfterNetting.households[i].meterDelta
     }
     console.log("Community-Saldo: " + saldo);
-    return saldo;
+    if(saldo > 0){
+      //avg marketprice
+      async function getAVGasks(){
+        avgasks = await Promise.resolve(ewo.getAsks);
+        avgbids = await Promise.resolve(ewo.getBids);
+        // TODO: eigentlich soll hier avg berechnet werden
+        return [avgasks/100 , avgbids/100]; //in USD
+      }
+
+      // avg stock exchange price
+      async function priceCompare(){
+        price = await Promise.resolve(awhandler.getMarketPrice); // aktueller Marktwert 1MWh in EUR (EPEX-Spotbörse)
+        price_stock = price.data[0].marketprice;
+        ewtPrice = await Promise.resolve(cryptohandler.getEWTvalue); // gibt den aktuellen Marktwert von EWT in Dollar wieder
+        ewtChangeRate = ewtPrice.percent_change_30d;
+        ratio_curr = await Promise.resolve(currencyConverter.getRatio); // rechnet Dollar in Euro um (aktueller Kurs)
+        ewtPrice_eur = ewtPrice.price/ratio_curr.rates.USD; // Marktwert EWT in EUR
+        
+        avgmarketprice = await Promise.resolve(getAVGasks());
+        avgbids = avgmarketprice[1];  // avg bid-price in EWO marketplace in USD from past x minutes
+        avgbids_eur = avgbids/ratio_curr.rates.USD;
+        avgasks = avgmarketprice[0];  // avg bid-price in EWO marketplace in USD
+        avgasks_eur = avgasks/ratio_curr.rates.USD;
+        
+        
+        var buy;
+
+        if (avgasks_eur < 0){
+          pricecompare = 'Origin Marketplace: There is no data for the selected product and timespace.'
+          console.log(pricecompare);
+          buy = false;
+        }else{
+          pricecompare = ['Eine MWh kostet an der Boerse zur Zeit: ' + price_stock.toString() + ' EUR', 'Ein EWT kostet zur Zeit: ' + ewtPrice.price + ' USD bzw. ' + (ewtPrice_eur).toString()+' EUR', 'Somit ist der Wert von 1 EWT in den letzten 30 Tagen um ' + ewtChangeRate + '% gestiegen.', 'Der aktuelle Marktwert einer MWh in den Asks von EWO liegt bei ' + avgasks + ' USD, bzw. ' + avgasks_eur + ' EUR.'];
+          console.log(pricecompare);
+          if (price_stock < avgasks_eur){
+            buy = true;
+            console.log("Sie sollten über EWO verkaufen! So könnten Sie eine Preissteigerung von " + (Math.round((avgasks_eur-price_stock) * 100) / 100).toFixed(2) + ' EUR pro MWh erwarten');
+          }else{
+            buy = false;
+            console.log("Sie sollten nicht über EWO verkaufen! Sie müssten mit einem Verlust von " + (Math.round((price_stock-avgasks_eur) * 100) / 100).toFixed(2) + ' EUR pro MWh rechnen');
+          }
+        }
+        return buy;
+      }
+
+      priceCompare().then(buy => {
+        if (buy === true){
+          console.log("contact HPU");
+        }
+      });
+    }
   }
 
-  async function checkPrice(){
-      avgasks = await Promise.resolve(ewo.getAsks);
-      avgbids = await Promise.resolve(ewo.getBids);
-      return ['Asks: ' + avgasks + ', Bids: ' + avgbids];
-  }
+  setTimeout(() => {
+    checkSaldo();
+  }, config.nettingInterval);
   
-  checkPrice().then(console.log);
-
+/*
+  var pricecompare = marketplacePrice
+  .then(result => {
+    //ich habe den Durchschnittspreis. Was machen wir damit?
+  })
+  .then(newResult => somethingElse(newResult))
+  .then(finalResult => {
+    console.log(finalResult);
+  })
+  .catch(() => console.error('Nothing happened'));
+*/
 
 
   async function runZokrates() {

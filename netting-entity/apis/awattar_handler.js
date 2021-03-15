@@ -1,12 +1,11 @@
-function getData(side) {
+function getMarketPrice() {
 
-    var https = require("http");
+    var https = require("https");
 
     return new Promise((resolve, reject) => {
         var options = {
-            host: 'localhost',
-            port: 3020,
-            path: side
+            host: 'api.awattar.de',
+            path: '/v1/marketdata'
         };
 
         https.get(options, function (https_res) {
@@ -15,15 +14,16 @@ function getData(side) {
 
             // this event fires many times, each time collecting another piece of the response
             https_res.on("data", function (chunk) {
-                data += chunk; // append this chunk to our growing `data` var
+                // append this chunk to our growing `data` var
+                data += chunk;
             });
 
             // this event fires *one* time, after all the `data` events/chunks have been gathered
             https_res.on("end", function () {
                 try {
-                    //const parsedData = JSON.parse(data);
-                    // console.log(data);
-                    resolve(data);
+                    const parsedData = JSON.parse(data);
+                    //console.log(parsedData);
+                    resolve(parsedData);
                 } catch (e) {
                     reject(e.message);
                 }
@@ -31,9 +31,4 @@ function getData(side) {
         });
     });
 }
-exports.getAsks = getData('/asks/solar');
-/*
-exports.getBids = getData('/bids/solar');
-exports.claimCertificate = getData('/issueCertificate');
-exports.createAsk = getData('/createAsk'); // vermutlich eher PUT!
-*/
+exports.getMarketPrice = getMarketPrice();

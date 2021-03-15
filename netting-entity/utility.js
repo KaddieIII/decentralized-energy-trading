@@ -134,7 +134,7 @@ class Utility {
       deltaConsumers += Number(this.households[consumers[i]].meterDelta);
     }
 
-    console.log("Saldo:" + (deltaProducers + deltaConsumers));
+    //console.log("Saldo:" + (deltaProducers + deltaConsumers));
 
     let isMoreAvailableThanDemanded = deltaProducers > Math.abs(deltaConsumers);
 
