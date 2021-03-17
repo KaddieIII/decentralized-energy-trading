@@ -101,7 +101,7 @@ Visit the UI at: [http://localhost:3000](http://localhost:3000).
 **2.)** When the EWO-UI is fully loaded, run in prototype-root-folder:
 
 ```
-yarn fill:db
+yarn fill-db
 ```
 
 **3.)** Start the Netting Entity:
