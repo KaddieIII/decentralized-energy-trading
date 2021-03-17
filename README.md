@@ -98,7 +98,7 @@ yarn run:origin
 ```
 Visit the UI at: [http://localhost:3000](http://localhost:3000). Before registering in the Demo-Version, go to step 2.)
 
-**2.)** Get the [MetaMask](https://metamask.io/download.html)-Extension for your Browser and get into the Test-Account with the mnemonic phrase: "wash elder couch enhance skin beyond body robust grief garage trumpet keep".
+**2.)** Get the [MetaMask](https://metamask.io/download.html)-Extension for your Browser and get into the Test-Account with the mnemonic phrase: "wash elder couch enhance skin beyond body robust grief garage trumpet keep", password: "blogpv1234".
 
 **2.)** When the EWO-UI is fully loaded, run in prototype-root-folder:
 
