@@ -100,26 +100,28 @@ Visit the UI at: [http://localhost:3000](http://localhost:3000). Before register
 
 **2.)** Get the [MetaMask](https://metamask.io/download.html)-Extension for your Browser and get into the Test-Account with the mnemonic phrase: "wash elder couch enhance skin beyond body robust grief garage trumpet keep", password: "blogpv1234".
 
-**2.)** When the EWO-UI is fully loaded, run in prototype-root-folder:
+**3.)** When the EWO-UI is fully loaded, run in prototype-root-folder:
 
 ```
 yarn fill-db
 ```
 
-**3.)** Start the Netting Entity:
+**4.)** On the EWO-UI: Login with User-Account "user: blogpv@gmail.com, password: blogpv1234".
+
+**5.)** Start the Netting Entity:
 
 ```bash
 yarn run-netting-entity -i 60000
 ```
 
-**4.)** Create two databases for both household servers:
+**6.)** Create two databases for both household servers:
 
 ```bash
 # Assumes project root directory
 docker-compose -f mongo/docker-compose.yml up -d
 ```
 
-**5.)** Start two household servers:
+**7.)** Start two household servers:
 
 ```bash
 # Household 1
@@ -139,7 +141,7 @@ yarn run-server -p 3003 \
 
 **Note:** Depending on your network settings an extra flag `-h 127.0.0.1` could be needed for both households.
 
-**6.)** Start a mocked sensor for each household:
+**8.)** Start a mocked sensor for each household:
 
 ```bash
 # Household 1 with positive energy balance
@@ -151,7 +153,7 @@ yarn run-sensor -p 3002 -e +
 yarn run-sensor -p 3003 -e -
 ```
 
-**7.)** Start two household-ui applications:
+**9.)** Start two household-ui applications:
 
 ```bash
 # Household 1
