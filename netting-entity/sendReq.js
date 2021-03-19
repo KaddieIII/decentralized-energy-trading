@@ -32,8 +32,3 @@ function getData(side) {
     });
 }
 exports.getAsks = getData('/asks/solar');
-/*
-exports.getBids = getData('/bids/solar');
-exports.claimCertificate = getData('/issueCertificate');
-exports.createAsk = getData('/createAsk'); // vermutlich eher PUT!
-*/

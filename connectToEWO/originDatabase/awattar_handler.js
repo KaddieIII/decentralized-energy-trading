@@ -1,9 +1,14 @@
-function getRatio() {
+function getMarketPrice() {
 
     var https = require("https");
 
     return new Promise((resolve, reject) => {
-        https.get('https://api.exchangeratesapi.io/latest', function (https_res) {
+        var options = {
+            host: 'api.awattar.de',
+            path: '/v1/marketdata'
+        };
+
+        https.get(options, function (https_res) {
             // initialize the container for our data
             var data = "";
 
@@ -16,8 +21,9 @@ function getRatio() {
             // this event fires *one* time, after all the `data` events/chunks have been gathered
             https_res.on("end", function () {
                 try {
+                    //console.log(data);
                     const parsedData = JSON.parse(data);
-                    //console.log(parsedData.rates.USD);
+                    //console.log(parsedData);
                     resolve(parsedData);
                 } catch (e) {
                     reject(e.message);
@@ -26,4 +32,4 @@ function getRatio() {
         });
     });
 }
-exports.getRatio = getRatio();
+exports.getMarketPrice = getMarketPrice();

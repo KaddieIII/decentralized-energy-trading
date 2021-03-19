@@ -1,5 +1,4 @@
 function getRatio() {
-
     var https = require("https");
 
     return new Promise((resolve, reject) => {

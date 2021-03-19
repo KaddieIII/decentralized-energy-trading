@@ -16,6 +16,7 @@ var cryptohandler = require("./apis/cryptoCurrHandler");
 var currencyConverter = require("./apis/currency_converter");
 
 const serverConfig = require("../ned-server-config");
+const householdConfig = require("../household-server-config");
 
 // Specify cli options
 commander
@@ -36,6 +37,16 @@ const config = {
   address: serverConfig.address,
   password: serverConfig.password
 };
+
+const config_household1 = {
+  host: householdConfig.host,
+  port: householdConfig.port
+};
+const config_household2 = {
+  host: householdConfig.host,
+  port: 3003
+};
+
 
 let web3;
 /** @type Utility */
@@ -93,8 +104,7 @@ async function init() {
       //avg marketprice
       async function getAVGasks(){
         avgasks = await Promise.resolve(ewo.getAsks);
-        avgbids = await Promise.resolve(ewo.getBids);
-        // TODO: eigentlich soll hier avg berechnet werden
+        //avgbids = await Promise.resolve(ewo.getBids);
         return [avgasks/100 , avgbids/100]; //in USD
       }
 
@@ -108,10 +118,10 @@ async function init() {
         ewtPrice_eur = ewtPrice.price/ratio_curr.rates.USD; // Marktwert EWT in EUR
         
         avgmarketprice = await Promise.resolve(getAVGasks());
-        avgbids = avgmarketprice[1];  // avg bid-price in EWO marketplace in USD from past x minutes
-        avgbids_eur = avgbids/ratio_curr.rates.USD;
+        //avgbids = avgmarketprice[1];  // avg bid-price in EWO marketplace in USD from past x minutes
+        //avgbids_eur = avgbids/ratio_curr.rates.USD;
         avgasks = avgmarketprice[0];  // avg bid-price in EWO marketplace in USD
-        avgasks_eur = avgasks/ratio_curr.rates.USD;
+        avgasks_eur = avgasks/ratio_curr.rates.USD; // in EUR
         
         
         var buy;
@@ -266,6 +276,13 @@ app.put("/energy/:householdAddress", async (req, res) => {
     );
     utility.updateMeterDelta(householdAddress, meterDelta, timestamp);
 
+    remoteAddress = req.socket.remoteAddress
+    remotePort = req.socket.remotePort
+    localAddress = req.socket.localAddress
+    localPort = req.socket.localPort
+    console.log('remote: ' + remoteAddress + ':' + remotePort);
+    console.log('local: ' + localAddress + ':' + localPort);
+
     res.status(200).send();
     //res.sendStatus();
   } catch (err) {
@@ -288,9 +305,9 @@ app.get("/network", (req, res) => {
     });
   } catch (err) {
     console.error("GET /network", err.message);
-    //res.status(400);
-    //res.sendStatus(err);
-    res.status(400).send(err);
+    res.status(400);
+    res.send(err);
+    //res.status(400).send(err);
   }
 });
 
@@ -313,9 +330,9 @@ app.get("/meterdelta", async (req, res) => {
     res.json({meterDelta: utility.households[recoveredAddress].meterDelta });
   } catch (err) {
     console.error("GET /meterdelta", err.message);
-    //res.status(400);
-    //res.sendStatus(err);
-    res.status(400).send(err);
+    res.status(400);
+    res.send(err);
+    // res.status(400).send(err);
   }
 });
 
@@ -334,9 +351,9 @@ app.get("/transfers/:householdAddress", (req, res) => {
     res.json(transfers || []);
   } catch (err) {
     console.error("GET /transfers/:householdAddress", err.message);
-    //res.status(400);
-    //res.sendStatus(err);
-    res.status(400).send(err);
+    res.status(400);
+    res.send(err);
+    // res.status(400).send(err);
   }
 });
 

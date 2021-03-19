@@ -7,13 +7,6 @@ function getEWTvalue() {
         var options = {
             host: 'pro-api.coinmarketcap.com',
             path: '/v1/cryptocurrency/listings/latest?start=1&limit=200&convert=USD',
-            /*
-            qs: {
-                'start': '1',
-                'limit': '200',
-                'convert': 'EUR'
-            },
-            */
             headers: {
                 'X-CMC_PRO_API_KEY': '566b1633-12f9-44e7-98e1-58d9563d0a2f'
             },
