@@ -29,7 +29,6 @@ async function selectFrom(side) {
     //console.log(res);
     return res;
   } catch (err) {
-    //console.log('why?');
     return (err.stack);
   }
 }
@@ -70,5 +69,5 @@ async function readData (side, timestamp, x) {
   }
 }
 
-exports.readBids = readData(0, time = Date.now(), 200);
+//exports.readBids = readData(0, time = Date.now(), 200);
 exports.readAsks = readData(1, time = Date.now(), 200);

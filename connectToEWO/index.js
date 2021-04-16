@@ -52,13 +52,7 @@ app.get('/createAsk', (req, res) => {
 
 
 
-/**
- * GET request not supported
- */
- app.get("/", function(req, res, next) {
-  res.status(400);
-  res.end(req.method + " is not supported.\n");
-});
+
 
 /**
  * POST request not supported

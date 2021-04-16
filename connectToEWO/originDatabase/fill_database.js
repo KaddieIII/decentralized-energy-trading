@@ -1,6 +1,6 @@
 const { Pool } = require('pg')
 var fs = require('fs');
-const config = require('./db_config');
+const config = require('../../db_config');
 var awhandler = require("./awattar_handler");
 var currencyConverter = require("./currency_converter");
 
@@ -125,7 +125,7 @@ async function fillDB() {
     fillDB();
     return res;
 }
-
+/*
 async function initDB(){
     var sql = fs.readFileSync('./connectToEWO/originDatabase/example.sql').toString();
     try{
@@ -136,6 +136,6 @@ async function initDB(){
     } 
     console.log(res);
 }
-
+*/
 // initDB();
 fillDB();

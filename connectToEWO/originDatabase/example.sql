@@ -84,39 +84,38 @@ CREATE TABLE IF NOT EXISTS public."exchange_order" (
     "side" character varying NOT NULL
 );
 
-INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") 
+INSERT INTO public."exchange_order" ("userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") 
 VALUES (
-    'c6463d76-bd4e-4015-beef-0834c7fb682a',     -- id (uuid DEFAULT public.uuid_generate_v4() NOT NULL)
-    '2',                                        -- userId (character varying NOT NULL)
+    '7',                                        -- userId (character varying NOT NULL)
     'Active',                                   -- status (character varying NOT NULL)
     500,                                        -- startVolume (bigint NOT NULL)
     250,                                        -- currentVolume (bigint NOT NULL)
     'Ask',                                        -- side (character varying NOT NULL)
     1000,                                       -- price (integer NOT NULL)
-    '2020-03-04 11:20:05.648397+00',            -- validFrom (timestamp with time zone NOT NULL)
-    '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016},"generationFrom":"2020-01-01T00:00:00.000Z","generationTo":"2020-01-31T00:00:00.000Z"}',  -- product (json NOT NULL)
-    'e7ce7521-aea0-49a0-bed3-deb7db357cd2',     -- assetId (uuid)
+    '2021-03-04 11:20:05.648397+00',            -- validFrom (timestamp with time zone NOT NULL)
+    '{"deviceType":["Solar;Photovoltaic;Roof mounted"],"location":["Thailand;South;Phuket"],"generationFrom":"2021-01-01T00:00:00.000Z","generationTo":"2021-01-31T00:00:00.000Z"}',  -- product (json NOT NULL)
+    NULL,                                       -- assetId (uuid)
     NULL                                        -- demandId (uuid)
 );
 
-INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('d91d2450-ec5c-4819-9237-6582b6858ef4', '1', 'Active', 250, 0, 'Ask', 1000, '2020-03-04 11:20:05.648397+00', '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016}}', NULL, '87406dfd-1757-4ef9-ab28-c89ab8dadf90');
+INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('d91d2450-ec5c-4819-9237-6582b6858ef4', '1', 'Active', 250, 0, 'Ask', 1000, '2021-03-04 11:20:05.648397+00', '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016}}', NULL, '87406dfd-1757-4ef9-ab28-c89ab8dadf90');
 
-INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('ed4649f2-20f8-4589-a8be-296d4fe38d9c', '1', 'Active', 2500000, 2500000, 'Bid', 900, '2020-03-04 11:20:05.648397+00', '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016}}', NULL, NULL);
-INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('47527400-26be-4830-aaa7-307e9a889b4e', '1', 'Active', 2500000, 2500000, 'Bid', 850, '2020-03-04 11:20:05.648397+00', '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016}}', NULL, NULL);
-INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('6ec0593e-7810-4164-96a6-954b2e441172', '1', 'Active', 2500000, 2500000, 'Bid', 750, '2020-03-04 11:20:05.648397+00', '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016}}', NULL, NULL);
+INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('ed4649f2-20f8-4589-a8be-296d4fe38d9c', '1', 'Active', 2500000, 2500000, 'Bid', 900, '2021-03-04 11:20:05.648397+00', '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016}}', NULL, NULL);
+INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('47527400-26be-4830-aaa7-307e9a889b4e', '1', 'Active', 2500000, 2500000, 'Bid', 850, '2021-03-04 11:20:05.648397+00', '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016}}', NULL, NULL);
+INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('6ec0593e-7810-4164-96a6-954b2e441172', '1', 'Active', 2500000, 2500000, 'Bid', 750, '2021-03-04 11:20:05.648397+00', '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016}}', NULL, NULL);
 
 
-INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('d34ca8db-fa66-47fa-9d3f-6d9d278c03b2', '2', 'Active', 5000000, 5000000, 'Ask', 1100, '2020-03-04 11:20:05.648397+00', '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016},"generationFrom":"2020-01-01T00:00:00.000Z","generationTo":"2020-01-31T00:00:00.000Z"}', 'e7ce7521-aea0-49a0-bed3-deb7db357cd2', NULL);
-INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('a15e2d4c-f9d8-432e-8635-21b6c9aadcdf', '2', 'Active', 5000000, 5000000, 'Ask', 1200, '2020-03-04 11:20:05.648397+00', '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016},"generationFrom":"2020-01-01T00:00:00.000Z","generationTo":"2020-01-31T00:00:00.000Z"}', 'e7ce7521-aea0-49a0-bed3-deb7db357cd2', NULL);
-INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('b2a8a14c-ddf7-45cf-bc4e-108ba19d11eb', '2', 'Active', 15000000, 15000000, 'Ask', 1300, '2020-03-04 11:20:05.648397+00', '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016},"generationFrom":"2020-01-01T00:00:00.000Z","generationTo":"2020-01-31T00:00:00.000Z"}', 'e7ce7521-aea0-49a0-bed3-deb7db357cd2', NULL);
+INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('d34ca8db-fa66-47fa-9d3f-6d9d278c03b2', '2', 'Active', 5000000, 5000000, 'Ask', 1100, '2021-03-04 11:20:05.648397+00', '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016},"generationFrom":"2020-01-01T00:00:00.000Z","generationTo":"2020-01-31T00:00:00.000Z"}', 'e7ce7521-aea0-49a0-bed3-deb7db357cd2', NULL);
+INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('a15e2d4c-f9d8-432e-8635-21b6c9aadcdf', '2', 'Active', 5000000, 5000000, 'Ask', 1200, '2021-03-04 11:20:05.648397+00', '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016},"generationFrom":"2020-01-01T00:00:00.000Z","generationTo":"2020-01-31T00:00:00.000Z"}', 'e7ce7521-aea0-49a0-bed3-deb7db357cd2', NULL);
+INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('b2a8a14c-ddf7-45cf-bc4e-108ba19d11eb', '2', 'Active', 15000000, 15000000, 'Ask', 1300, '2021-03-04 11:20:05.648397+00', '{"deviceType":["Solar;Photovoltaic;Classic silicon"],"location":["Thailand;Central;Nakhon Pathom"],"deviceVintage":{"year":2016},"generationFrom":"2020-01-01T00:00:00.000Z","generationTo":"2020-01-31T00:00:00.000Z"}', 'e7ce7521-aea0-49a0-bed3-deb7db357cd2', NULL);
 
-INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('3016eaee-e93e-4356-a5c9-f45f228642f5', '2', 'Active', 3000000, 3000000, 'Ask', 800, '2020-03-04 11:20:05.648397+00', '{"deviceType":["Wind;Onshore"],"location":["Thailand;Northeast;Nakhon Ratchasima"],"deviceVintage":{"year":2014},"generationFrom":"2020-01-01T00:00:00.000Z","generationTo":"2020-01-31T00:00:00.000Z"}', '2c0fd5e0-a819-4d6a-bfde-e24343d9d679', NULL);
-INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('2ead1352-cff0-41b7-b5ba-841e8de07d0f', '2', 'Active', 4000000, 4000000, 'Ask', 850, '2020-03-04 11:20:05.648397+00', '{"deviceType":["Wind;Onshore"],"location":["Thailand;Northeast;Nakhon Ratchasima"],"deviceVintage":{"year":2014},"generationFrom":"2020-01-01T00:00:00.000Z","generationTo":"2020-01-31T00:00:00.000Z"}', '2c0fd5e0-a819-4d6a-bfde-e24343d9d679', NULL);
-INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('b3da36a4-9562-466d-aa6e-9cf0aed8a336', '2', 'Active', 5000000, 5000000, 'Ask', 860, '2020-03-04 11:20:05.648397+00', '{"deviceType":["Wind;Onshore"],"location":["Thailand;Northeast;Nakhon Ratchasima"],"deviceVintage":{"year":2014},"generationFrom":"2020-01-01T00:00:00.000Z","generationTo":"2020-01-31T00:00:00.000Z"}', '2c0fd5e0-a819-4d6a-bfde-e24343d9d679', NULL);
+INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('3016eaee-e93e-4356-a5c9-f45f228642f5', '2', 'Active', 3000000, 3000000, 'Ask', 800, '2021-03-04 11:20:05.648397+00', '{"deviceType":["Wind;Onshore"],"location":["Thailand;Northeast;Nakhon Ratchasima"],"deviceVintage":{"year":2014},"generationFrom":"2020-01-01T00:00:00.000Z","generationTo":"2020-01-31T00:00:00.000Z"}', '2c0fd5e0-a819-4d6a-bfde-e24343d9d679', NULL);
+INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('2ead1352-cff0-41b7-b5ba-841e8de07d0f', '2', 'Active', 4000000, 4000000, 'Ask', 850, '2021-03-04 11:20:05.648397+00', '{"deviceType":["Wind;Onshore"],"location":["Thailand;Northeast;Nakhon Ratchasima"],"deviceVintage":{"year":2014},"generationFrom":"2020-01-01T00:00:00.000Z","generationTo":"2020-01-31T00:00:00.000Z"}', '2c0fd5e0-a819-4d6a-bfde-e24343d9d679', NULL);
+INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('b3da36a4-9562-466d-aa6e-9cf0aed8a336', '2', 'Active', 5000000, 5000000, 'Ask', 860, '2021-03-04 11:20:05.648397+00', '{"deviceType":["Wind;Onshore"],"location":["Thailand;Northeast;Nakhon Ratchasima"],"deviceVintage":{"year":2014},"generationFrom":"2020-01-01T00:00:00.000Z","generationTo":"2020-01-31T00:00:00.000Z"}', '2c0fd5e0-a819-4d6a-bfde-e24343d9d679', NULL);
 
-INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('d6d8be53-4d50-4a71-9554-609a10bf2a73', '2', 'Active', 5000000, 5000000, 'Bid', 790, '2020-03-04 11:20:05.648397+00', '{"deviceType":["Wind"],"location":["Thailand;Northeast"]}', NULL, NULL);
-INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('dda5f595-b0f6-4f9b-b186-f04c86d71ce5', '2', 'Active', 5000000, 5000000, 'Bid', 780, '2020-03-04 11:20:05.648397+00', '{"deviceType":["Wind"],"location":["Thailand;Northeast"]}', NULL, NULL);
-INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('fa041c7a-2a1f-4241-b158-cb6d3ad1789b', '2', 'Active', 5000000, 5000000, 'Bid', 770, '2020-03-04 11:20:05.648397+00', '{"deviceType":["Wind"],"location":["Thailand;Northeast"]}', NULL, NULL);
+INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('d6d8be53-4d50-4a71-9554-609a10bf2a73', '2', 'Active', 5000000, 5000000, 'Bid', 790, '2021-03-04 11:20:05.648397+00', '{"deviceType":["Wind"],"location":["Thailand;Northeast"]}', NULL, NULL);
+INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('dda5f595-b0f6-4f9b-b186-f04c86d71ce5', '2', 'Active', 5000000, 5000000, 'Bid', 780, '2021-03-04 11:20:05.648397+00', '{"deviceType":["Wind"],"location":["Thailand;Northeast"]}', NULL, NULL);
+INSERT INTO public."exchange_order" (id, "userId", status, "startVolume", "currentVolume", side, price, "validFrom", product, "assetId", "demandId") VALUES ('fa041c7a-2a1f-4241-b158-cb6d3ad1789b', '2', 'Active', 5000000, 5000000, 'Bid', 770, '2021-03-04 11:20:05.648397+00', '{"deviceType":["Wind"],"location":["Thailand;Northeast"]}', NULL, NULL);
 
 
 CREATE TABLE IF NOT EXISTS public.exchange_trade (
@@ -266,7 +265,23 @@ VALUES (
         '7',
         'Active',
         'Passed'
-    );
+);
+
+INSERT INTO public.exchange_account (id, "userId", address) VALUES ('2bfc9f5c-36b5-4730-9b19-edb09e6642f0', '7', '0x24B207fFf1a1097d3c3D69fcE461544f83c6E774');
+
+/*
+UPDATE public.device
+SET "organizationId" = '7'
+WHERE "organizationId" = '3';
+*/
+
+
+
+
+
+
+
+
 /*
 INSERT INTO public."user" (
         "createdAt",

@@ -10,6 +10,7 @@ const zkHandler = require("./zk-handler");
 const web3Helper = require("../helpers/web3");
 const contractHelper = require("../helpers/contract");
 
+
 const ewo = require('./sendReq');
 var awhandler = require("./apis/awattar_handler");
 var cryptohandler = require("./apis/cryptoCurrHandler");
@@ -17,6 +18,7 @@ var currencyConverter = require("./apis/currency_converter");
 
 const serverConfig = require("../ned-server-config");
 const householdConfig = require("../household-server-config");
+const db_helper = require("../connectToEWO/originDatabase/index");
 
 // Specify cli options
 commander
@@ -37,16 +39,6 @@ const config = {
   address: serverConfig.address,
   password: serverConfig.password
 };
-
-const config_household1 = {
-  host: householdConfig.host,
-  port: householdConfig.port
-};
-const config_household2 = {
-  host: householdConfig.host,
-  port: 3003
-};
-
 
 let web3;
 /** @type Utility */
@@ -102,12 +94,18 @@ async function init() {
     console.log("Community-Saldo: " + saldo);
     if(saldo > 0){
       //avg marketprice
+      async function getAVGasks() {
+        asks = await Promise.resolve(db_helper.readAsks); // readBids
+        //return asks;
+        return [avgasks/100 , avgbids/100]; //in USD
+      }
+      /*
       async function getAVGasks(){
         avgasks = await Promise.resolve(ewo.getAsks);
         //avgbids = await Promise.resolve(ewo.getBids);
         return [avgasks/100 , avgbids/100]; //in USD
       }
-
+      */
       // avg stock exchange price
       async function priceCompare(){
         price = await Promise.resolve(awhandler.getMarketPrice); // aktueller Marktwert 1MWh in EUR (EPEX-Spotbörse)

@@ -106,6 +106,28 @@ async function checkNetting(){
     })
 }
 
+async function createAsk(){
+  /**
+   * TODO: 
+   * Funktion muss erst aktuellen Marktwert von EACs auslesen
+   * Dann erzeugt es für die eigene USER-ID ein Ask
+   * Parameter: eigene USER-ID 
+   */
+  const { Pool } = require('pg')
+  const config = require('../db_config');
+
+  const pool = new Pool({
+    user: config.user,
+    host: config.host,
+    database: config.database,
+    password: config.password,
+    port: config.port,
+  })
+  pool.connect()
+
+}
+
+
 /**
  * Creating the express server waiting for incoming requests
  * When a request comes in, a corresponding event is emitted
@@ -198,6 +220,27 @@ app.get("/network-stats", async (req, res, next) => {
     res.json(data);
   } catch (error) {
     console.error("GET /network-stats", error.message);
+    res.status(500);
+    res.end(error);
+  }
+});
+
+/**
+ * GET /requestCertificates
+ */
+ app.get("/requestCertificates", async (req, res) => {
+  try {
+    /* In the future, data needs some more functionality */
+    const data = 'Requesting Certificate accepted, creatingAsk';
+    /**
+     * TODO: create Ask
+     */
+
+    res.setHeader("Content-Type", "application/json");
+    res.status(200);
+    res.json(data);
+  } catch (error) {
+    console.error("GET /requestCertificates", error.message);
     res.status(500);
     res.end(error);
   }
